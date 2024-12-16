@@ -1,0 +1,20 @@
+# Ignorar archivos de entorno virtual
+venv-todo/
+*.venv
+.env
+
+# Archivos de caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de logs
+*.log
+
+# Archivos de desarrollo
+.git
+.gitignore
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
