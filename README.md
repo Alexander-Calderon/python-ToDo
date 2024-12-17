@@ -1,5 +1,5 @@
  
-# TODO App
+# TODO App (PENDIENTE SONARQUBE)
 
 Aplicación que permite la gestión de tareas, desarrollado para el curso de IA Generativa.
 
