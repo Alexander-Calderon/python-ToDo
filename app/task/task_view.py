@@ -1,6 +1,8 @@
 import time
 
 import streamlit as st
+
+from components.Tasks.task_component import render_task_buttons, render_task
 from models.task_model import DatabaseManager
 import traceback
 
@@ -39,19 +41,12 @@ class TaskManagerApp:
                 except Exception as e:
                     st.error(f"Error al agregar tarea: {e}")
 
+
+
     def render_tasks_section(self):
         st.header("Mis Tareas")
 
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            if st.button("Todas las Tareas"):
-                st.session_state.view_mode = 'all'
-        with col2:
-            if st.button("Pendientes"):
-                st.session_state.view_mode = 'pending'
-        with col3:
-            if st.button("Completadas"):
-                st.session_state.view_mode = 'completed'
+        render_task_buttons()
 
         tasks = self.db_manager.get_all_tasks()
         filtered_tasks = []
@@ -64,19 +59,9 @@ class TaskManagerApp:
             filtered_tasks = tasks
 
         for task in filtered_tasks:
-            with st.expander(f"🔹 {task.title}"):
-                st.write(f"**Descripción:** {task.description or 'Sin descripción'}")
-                st.write(f"**Estado:** {'✅ Completada' if task.completed else '⏳ Pendiente'}")
+            render_task(task, self.db_manager)
 
-                col1, col2 = st.columns(2)
-                with col1:
-                    if not task.completed:
-                        if st.button(f"Marcar Completada (ID: {task.id})"):
-                            try:
-                                self.db_manager.mark_task_completed(task.id)
-                                st.rerun()
-                            except Exception as e:
-                                st.error(f"Error al marcar tarea: {e}")
+
 
     def render_actions_section(self):
         st.subheader("Eliminar Tareas Completadas")
@@ -114,7 +99,6 @@ class TaskManagerApp:
                     st.error(f"Error al exportar tareas: {e}")
 
         with col2:
-            # uploaded_file = st.file_uploader("Importar Tareas desde JSON", type=['json'])
             uploaded_file = st.file_uploader("Importar Tareas desde JSON", type=['json'], key=st.session_state["file_uploader_key"])
 
             if uploaded_file is not None:
@@ -122,17 +106,14 @@ class TaskManagerApp:
 
             if st.session_state["uploaded_file"] is not None:
                 try:
-                    # with open("import_tasks.json", "wb") as f:
-                    #     f.write(uploaded_file.getbuffer())
                     import json
                     file_content = st.session_state["uploaded_file"].getvalue().decode("utf-8")
                     tasks_data = json.loads(file_content)
 
-                    # self.db_manager.import_tasks_from_json("import_tasks.json")
                     self.db_manager.import_tasks_from_json(tasks_data=tasks_data)
                     st.success("Tareas importadas exitosamente")
 
-                    # fix para que no se quede el archivo cargado y pueda refrescar con rerun. (alternativa sería usar estados para el file_uploader)
+                    # fix para que no se quede el archivo cargado y pueda refrescar con rerun. (alternativa sería intentar usar estados para el file_uploader...)
                     st.session_state["uploaded_file"] = None
                     st.session_state["file_uploader_key"] += 1  # Cambiar la clave para "resetear" el uploader
                     time.sleep(1)

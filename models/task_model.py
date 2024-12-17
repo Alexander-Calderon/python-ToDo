@@ -1,4 +1,3 @@
-# import config.settings
 from config import settings
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
@@ -25,10 +24,10 @@ class DatabaseManager:
     def __init__(self, db_path='todo.db'):
         self.engine = create_engine(f'sqlite:///{settings.DB_PATH}')
         Base.metadata.create_all(self.engine)
-        self.Session = sessionmaker(bind=self.engine)
+        self.session = sessionmaker(bind=self.engine)
 
     def add_task(self, title, description):
-        session = self.Session()
+        session = self.session()
         try:
             new_task = Task(title=title, description=description)
             session.add(new_task)
@@ -41,7 +40,7 @@ class DatabaseManager:
             session.close()
 
     def get_all_tasks(self):
-        session = self.Session()
+        session = self.session()
         try:
             tasks = session.query(Task).all()
             return tasks
@@ -49,7 +48,7 @@ class DatabaseManager:
             session.close()
 
     def mark_task_completed(self, task_id):
-        session = self.Session()
+        session = self.session()
         try:
             task = session.query(Task).get(task_id)
             if task:
@@ -64,7 +63,7 @@ class DatabaseManager:
             session.close()
 
     def delete_completed_tasks(self):
-        session = self.Session()
+        session = self.session()
         try:
             session.query(Task).filter(Task.completed == True).delete()
             session.commit()
@@ -74,9 +73,9 @@ class DatabaseManager:
         finally:
             session.close()
 
-    def export_tasks_to_json(self, filename='dumped/tasks.json'):
+    def export_tasks_to_json(self):
         import json
-        session = self.Session()
+        session = self.session()
         try:
             tasks = session.query(Task).all()
             tasks_data = [{
@@ -88,19 +87,17 @@ class DatabaseManager:
                 'completed_at': task.completed_at.isoformat() if task.completed_at else None
             } for task in tasks]
 
-            # with open(filename, 'w') as f:
-            #     json.dump(tasks_data, f, indent=4)
             json_data = json.dumps(tasks_data, indent=4)
             return json_data
 
         finally:
             session.close()
 
-    def import_tasks_from_json(self, filename='tasks.json', tasks_data=None):
+    def import_tasks_from_json(self, filename='dumped/tasks.json', tasks_data=None):
         import json
-        session = self.Session()
+        session = self.session()
         try:
-            if tasks_data is None:
+            if tasks_data is None and filename:
                 with open(filename, 'r') as f:
                     tasks_data = json.load(f)
 
