@@ -1,5 +1,5 @@
  
-# TODO App (PENDIENTE SONARQUBE)
+# TODO App
 
 Aplicación que permite la gestión de tareas, desarrollado para el curso de IA Generativa.
 
@@ -130,8 +130,6 @@ El proyecto quedará accesible desde el puerto 8500 desde la máquina Host.
 ## Badges  
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
 
 ## Análisis SonasQube
@@ -141,3 +139,4 @@ Resultados del análisis:
 ![img](https://i.imgur.com/yaVQSnm.png)
 
 ![img](https://i.imgur.com/qZbLP33.png)
+
