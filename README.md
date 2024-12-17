@@ -2,18 +2,35 @@
 # TODO App
 
 Aplicación que permite la gestión de tareas, desarrollado para el curso de IA Generativa.
+
 **Ir al sitio:** 
 
 [![TodoApp](https://img.shields.io/badge/Website-TodoApp-4c8bf5?logo=appveyor&logoColor=white&style=for-the-badge)](https://todoapp.alexandercalderon.dev)
 
 
-
 ## Características
 - Agregar nuevas tareas
+![Img](https://i.imgur.com/hK4Zf5F.png)
+
+
 - Listar tareas (todas, pendientes, completadas)
+![img](https://i.imgur.com/Ues8aw1.png)
+
+
 - Marcar tareas como completadas
+![img](https://i.imgur.com/x6UWLW8.png)
+
+
+
 - Eliminar tareas completadas
+![img](https://i.imgur.com/IaQPwxx.png)
+
+
+
 - Exportar/Importar tareas en formato JSON
+![img](https://i.imgur.com/Meci8Ho.png)
+
+
 - Interfaz gráfica con Streamlit
 
 
@@ -86,7 +103,7 @@ docker build --no-cache -t todo-app .
 
 ##### Correr contenedor
 ```
-docker run --rm -p 8500:8501 todo-app
+docker run --rm -p 8500:8501 -v dumped:/app/dumped --name c_todo-app todo-app
 ```
 El proyecto quedará accesible desde el puerto 8500 desde la máquina Host.
 

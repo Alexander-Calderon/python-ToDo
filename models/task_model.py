@@ -74,7 +74,7 @@ class DatabaseManager:
         finally:
             session.close()
 
-    def export_tasks_to_json(self, filename='tasks.json'):
+    def export_tasks_to_json(self, filename='dumped/tasks.json'):
         import json
         session = self.Session()
         try:
@@ -93,14 +93,19 @@ class DatabaseManager:
         finally:
             session.close()
 
-    def import_tasks_from_json(self, filename='tasks.json'):
+    def import_tasks_from_json(self, filename='tasks.json', tasks_data=None):
         import json
         session = self.Session()
         try:
-            with open(filename, 'r') as f:
-                tasks_data = json.load(f)
+            if tasks_data is None:
+                with open(filename, 'r') as f:
+                    tasks_data = json.load(f)
 
             for task_data in tasks_data:
+                existing_task = session.query(Task).filter_by(title=task_data['title']).first()
+                if existing_task:
+                    continue
+
                 task = Task(
                     title=task_data['title'],
                     description=task_data['description'],

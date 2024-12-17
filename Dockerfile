@@ -14,4 +14,4 @@ ENTRYPOINT ["streamlit", "run", "app.py"]
 
 ## Comandos para construir y ejecutar la imagen
 # docker build --no-cache -t todo-app .
-# docker run --rm -p 8500:8501 todo-app
+# docker run --rm -p 8500:8501 -v dumped:/app/dumped --name c_todo-app todo-app
