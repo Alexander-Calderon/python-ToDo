@@ -115,6 +115,7 @@ El proyecto quedará accesible desde el puerto 8500 desde la máquina Host.
 - `models`: Carpeta del modelo implementado utilizando SQLAlchemy.
 - `db`: Base de datos.
 - `requirements.txt`: Dependencias del proyecto.
+- `components`: Componentes web reutilizables, optimiza y mejora la legibilidad del código. (mejora para el test de SonarQube)
 
 
 #### Extras
@@ -135,3 +136,8 @@ El proyecto quedará accesible desde el puerto 8500 desde la máquina Host.
 
 ## Análisis SonasQube
 
+Resultados del análisis:
+
+![img](https://i.imgur.com/yaVQSnm.png)
+
+![img](https://i.imgur.com/PQP6iBf.png)
