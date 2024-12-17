@@ -88,8 +88,11 @@ class DatabaseManager:
                 'completed_at': task.completed_at.isoformat() if task.completed_at else None
             } for task in tasks]
 
-            with open(filename, 'w') as f:
-                json.dump(tasks_data, f, indent=4)
+            # with open(filename, 'w') as f:
+            #     json.dump(tasks_data, f, indent=4)
+            json_data = json.dumps(tasks_data, indent=4)
+            return json_data
+
         finally:
             session.close()
 

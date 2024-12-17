@@ -100,8 +100,16 @@ class TaskManagerApp:
             export_filename = st.text_input("Nombre de archivo para exportar", value="tasks.json")
             if st.button("Exportar Tareas"):
                 try:
-                    self.db_manager.export_tasks_to_json('dumped/' + export_filename)
-                    st.success(f"Tareas exportadas a {export_filename}")
+                    json_data = self.db_manager.export_tasks_to_json()
+
+                    st.download_button(
+                        label="📥 Descarga",
+                        data=json_data,
+                        file_name=export_filename,
+                        mime="application/text"
+                    )
+
+
                 except Exception as e:
                     st.error(f"Error al exportar tareas: {e}")
 
