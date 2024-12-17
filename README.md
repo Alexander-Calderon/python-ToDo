@@ -4,7 +4,7 @@
 Aplicación que permite la gestión de tareas, desarrollado para el curso de IA Generativa.
 **Ir al sitio:** 
 
-[![TodoApp](https://img.shields.io/badge/Website-TodoApp-4c8bf5?logo=appveyor&logoColor=white&style=for-the-badge)](todoapp.alexandercalderon.dev)
+[![TodoApp](https://img.shields.io/badge/Website-TodoApp-4c8bf5?logo=appveyor&logoColor=white&style=for-the-badge)](https://todoapp.alexandercalderon.dev)
 
 
 
