@@ -140,4 +140,4 @@ Resultados del análisis:
 
 ![img](https://i.imgur.com/yaVQSnm.png)
 
-![img](https://i.imgur.com/PQP6iBf.png)
+![img](https://i.imgur.com/qZbLP33.png)
